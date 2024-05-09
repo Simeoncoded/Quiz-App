@@ -7,6 +7,8 @@ export default function Quiz(){
     let [index,setIndex] = useState(0);
     let [question,setQuestion] = useState(data[index]);
     let [lock,setLock] = useState(false);
+    let [score,setScore] = useState(0);
+
 
     let Option1 = useRef(null);
     let Option2 = useRef(null);
@@ -20,6 +22,7 @@ export default function Quiz(){
         if(question.ans===ans){
             e.target.classList.add("correct");
             setLock(true);
+            setScore(prev=>prev+1);
         }
         else{
             e.target.classList.add("wrong");
@@ -28,6 +31,12 @@ export default function Quiz(){
         }
     }
     }
+
+    const next = ()=>{
+
+
+    }
+
     return <div className="container">
         <h1>Quiz App</h1>
         <hr />
@@ -39,6 +48,6 @@ export default function Quiz(){
             <li ref={Option4} onClick={(e)=>{checkAns(e,4)}}>{question.option4}</li>
         </ul>
         <button>Next</button>
-        <div className="index">1 of 5 Questions</div>
+        <div className="index">{index +1} of {data.length} Questions</div>
     </div>
 }
