@@ -8,6 +8,7 @@ export default function Quiz(){
     let [question,setQuestion] = useState(data[index]);
     let [lock,setLock] = useState(false);
     let [score,setScore] = useState(0);
+    let [result,setResult] = useState(false);
 
 
     let Option1 = useRef(null);
@@ -33,7 +34,16 @@ export default function Quiz(){
     }
 
     const next = ()=>{
-
+        if(lock===true){
+            setIndex(++index);
+            setQuestion(data[index]);
+            setLock(false);
+            optionArray.map((option)=>{
+                option.current.classList.remove("wrong");
+                option.current.classList.remove("correct");
+                return null;
+            })
+        }
 
     }
 
@@ -47,7 +57,7 @@ export default function Quiz(){
             <li ref={Option3} onClick={(e)=>{checkAns(e,3)}}>{question.option3}</li>
             <li ref={Option4} onClick={(e)=>{checkAns(e,4)}}>{question.option4}</li>
         </ul>
-        <button>Next</button>
+        <button onClick={next}>Next</button>
         <div className="index">{index +1} of {data.length} Questions</div>
     </div>
 }
